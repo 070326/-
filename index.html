@@ -1485,5 +1485,36 @@
     loadJournal();
     updateMusicTime();
   </script>
+  <script>
+const bgMusic = document.getElementById('bgMusic');
+const playBtn = document.getElementById('playPauseBtn');
+const volSlider = document.getElementById('musicVol');
+const musicFile = document.getElementById('musicFile');
+const musicStatus = document.getElementById('musicStatus');
+
+playBtn.addEventListener('click', () => {
+  if(bgMusic.paused){
+    bgMusic.play();
+    playBtn.textContent = '⏸';
+    musicStatus.textContent = 'Играет…';
+  } else {
+    bgMusic.pause();
+    playBtn.textContent = '▶';
+    musicStatus.textContent = 'На паузе';
+  }
+});
+
+volSlider.addEventListener('input', () => bgMusic.volume = volSlider.value);
+
+musicFile.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if(file){
+    bgMusic.src = URL.createObjectURL(file);
+    bgMusic.play();
+    playBtn.textContent = '⏸';
+    musicStatus.textContent = 'Играет загруженный трек';
+  }
+});
+</script>
 </body>
 </html>
